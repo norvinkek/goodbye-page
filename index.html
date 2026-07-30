@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -180,31 +179,118 @@
     color:var(--grey-text);
     margin:0 0 26px;
   }
-  .qr-grid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:16px;
-  }
-  @media(min-width:640px){
-    .qr-grid{ grid-template-columns:repeat(3,1fr); }
-  }
-  .qr-card{
-    border:2px solid var(--border);
-    border-radius:14px;
-    padding:22px 18px;
+
+  /* ===== Featured LinkedIn card (full width, primary tier) ===== */
+  .featured-card{
+    border:2px solid var(--linkedin);
+    border-radius:16px;
+    padding:28px 24px;
     text-align:center;
     display:flex;
     flex-direction:column;
     align-items:center;
+    gap:12px;
+    background:#fff;
+  }
+  .featured-card h3{
+    font-family:var(--heading-font);
+    font-size:18px;
+    letter-spacing:0.03em;
+    margin:0;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    color:var(--ink);
+  }
+  .featured-card h3 svg{
+    width:24px;
+    height:24px;
+    flex-shrink:0;
+    color:var(--linkedin);
+  }
+  .featured-card p{
+    font-family:var(--body-font);
+    font-size:13.5px;
+    color:var(--grey-text);
+    margin:0;
+    line-height:1.5;
+    text-align:center;
+  }
+  .featured-card .qr-img canvas{
+    border-radius:10px;
+    margin:6px 0;
+  }
+  .featured-card .open-link{
+    width:100%;
+    text-align:center;
+    font-size:15px;
+    padding:14px 16px;
+    margin-top:4px;
+  }
+
+  /* ===== Divider between tiers ===== */
+  .tier-divider{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:26px 0 18px;
+  }
+  .tier-divider::before,
+  .tier-divider::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--border);
+  }
+  .tier-divider span{
+    font-family:var(--body-font);
+    font-size:12.5px;
+    color:var(--grey-text);
+    white-space:nowrap;
+  }
+
+  /* ===== Personal tier: equal side-by-side cards, centered content ===== */
+  .personal-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
+  }
+  @media(max-width:520px){
+    .personal-grid{
+      grid-template-columns:1fr;
+    }
+  }
+  .qr-card{
+    border:2px solid var(--border);
+    border-radius:14px;
+    padding:20px 16px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
     gap:10px;
   }
   .qr-card.telegram{ border-color:var(--telegram); }
   .qr-card.instagram{ border-color:var(--instagram); }
-  .qr-card.linkedin{ border-color:var(--linkedin); }
 
+  .qr-card .qr-img{
+    display:flex;
+    justify-content:center;
+  }
+  .qr-card .qr-img canvas{ border-radius:8px; }
+
+  .qr-card-body{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    width:100%;
+  }
   .qr-card h3{
     font-family:var(--heading-font);
-    font-size:15px;
+    font-size:14px;
     letter-spacing:0.03em;
     margin:0;
     font-weight:600;
@@ -215,24 +301,29 @@
   }
   .qr-card.telegram h3 svg{ color:var(--telegram); }
   .qr-card.instagram h3 svg{ color:var(--instagram); }
-  .qr-card.linkedin h3 svg{ color:var(--linkedin); }
   .qr-card h3 svg{
-    width:20px;
-    height:20px;
+    width:18px;
+    height:18px;
     flex-shrink:0;
   }
   .qr-card p{
     font-family:var(--body-font);
-    font-size:12.5px;
+    font-size:12px;
     color:var(--grey-text);
     margin:0;
-    line-height:1.5;
+    line-height:1.45;
+    text-align:center;
   }
-  .qr-img canvas{ border-radius:8px; }
+  .qr-card .open-link{
+    font-size:12.5px;
+    padding:8px 14px;
+    margin-top:4px;
+    width:100%;
+    text-align:center;
+  }
+
   .open-link{
-    margin-top:6px;
     font-family:var(--heading-font);
-    font-size:13px;
     font-weight:600;
     text-decoration:none;
     border:none;
@@ -240,6 +331,7 @@
     padding:8px 16px;
     border-radius:8px;
     color:#fff;
+    display:inline-block;
   }
   .open-link.telegram{ background:var(--telegram); }
   .open-link.instagram{ background:var(--instagram); }
@@ -351,24 +443,34 @@
     <h2 class="section-title">GOOD. THAT WOULD HAVE BEEN AWKWARD.</h2>
     <p class="section-sub">Choose your preferred way to keep in contact.</p>
 
-    <div class="qr-grid">
-      <div class="qr-card telegram">
-        <h3><svg><use href="#icon-telegram"/></svg> TELEGRAM</h3>
-        <p>Reach out anytime.<br/>About anything. Actually.</p>
-        <div class="qr-img" id="qr-telegram"></div>
-        <a class="open-link telegram" id="open-telegram" target="_blank" rel="noopener">Open Telegram →</a>
-      </div>
+    <!-- TIER 1: Featured / professional -->
+    <div class="featured-card">
+      <h3><svg><use href="#icon-linkedin"/></svg> LINKEDIN</h3>
+      <p>Of course.<br/>I had to — this is corporate.</p>
+      <div class="qr-img" id="qr-linkedin"></div>
+      <a class="open-link linkedin" id="open-linkedin" target="_blank" rel="noopener">Open LinkedIn →</a>
+    </div>
+
+    <!-- Divider -->
+    <div class="tier-divider"><span>Or, for the less corporate version of me:</span></div>
+
+    <!-- TIER 2: Personal, equal side-by-side cards -->
+    <div class="personal-grid">
       <div class="qr-card instagram">
-        <h3><svg><use href="#icon-instagram"/></svg> INSTAGRAM</h3>
-        <p>See what I'm doing.<br/>Mainly what I cook / eat.</p>
         <div class="qr-img" id="qr-instagram"></div>
-        <a class="open-link instagram" id="open-instagram" target="_blank" rel="noopener">Open Instagram →</a>
+        <div class="qr-card-body">
+          <h3><svg><use href="#icon-instagram"/></svg> INSTAGRAM</h3>
+          <p>See what I'm doing.<br/>Mainly what I cook / eat.</p>
+          <a class="open-link instagram" id="open-instagram" target="_blank" rel="noopener">Open Instagram →</a>
+        </div>
       </div>
-      <div class="qr-card linkedin">
-        <h3><svg><use href="#icon-linkedin"/></svg> LINKEDIN</h3>
-        <p>Of course.<br/>I had to — this is corporate.</p>
-        <div class="qr-img" id="qr-linkedin"></div>
-        <a class="open-link linkedin" id="open-linkedin" target="_blank" rel="noopener">Open LinkedIn →</a>
+      <div class="qr-card telegram">
+        <div class="qr-img" id="qr-telegram"></div>
+        <div class="qr-card-body">
+          <h3><svg><use href="#icon-telegram"/></svg> TELEGRAM</h3>
+          <p>Reach out anytime.<br/>About anything. Actually.</p>
+          <a class="open-link telegram" id="open-telegram" target="_blank" rel="noopener">Open Telegram →</a>
+        </div>
       </div>
     </div>
 
